@@ -1,4 +1,4 @@
-package me.Unweptpit.Commands;
+package smp.picnic.picnicstaff.commands;
 
 
 
@@ -24,9 +24,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import me.Unweptpit.Features.StaffItems;
-import me.Unweptpit.Picnicstaff.PicnicStaff;
 import net.md_5.bungee.api.ChatColor;
+import smp.picnic.picnicstaff.PicnicStaff;
+import smp.picnic.picnicstaff.features.StaffItems;
 
 public class StaffMode implements CommandExecutor,Listener {
 	

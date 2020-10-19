@@ -1,4 +1,4 @@
-main: me.Unweptpit.Picnicstaff.PicnicStaff
+main: smp.picnic.picnicstaff.PicnicStaff
 name: Picnicstaff
 version: 1.0
 author: Unweptpit
