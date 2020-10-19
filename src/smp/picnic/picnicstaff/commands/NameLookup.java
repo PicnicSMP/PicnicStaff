@@ -1,4 +1,4 @@
-package me.Unweptpit.Commands;
+package smp.picnic.picnicstaff.commands;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

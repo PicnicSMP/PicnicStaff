@@ -1,4 +1,4 @@
-package me.Unweptpit.Picnicstaff;
+package smp.picnic.picnicstaff;
 
 
 import org.bukkit.Bukkit;
@@ -13,11 +13,11 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.Unweptpit.Commands.Adminchat;
-import me.Unweptpit.Commands.PlayerInfo;
-import me.Unweptpit.Commands.StaffMode;
-import me.Unweptpit.Commands.Staffchat;
-import me.Unweptpit.Features.XrayNotifier;
+import smp.picnic.picnicstaff.commands.Adminchat;
+import smp.picnic.picnicstaff.commands.PlayerInfo;
+import smp.picnic.picnicstaff.commands.StaffMode;
+import smp.picnic.picnicstaff.commands.Staffchat;
+import smp.picnic.picnicstaff.features.XrayNotifier;
 
 
 

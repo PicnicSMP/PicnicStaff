@@ -1,4 +1,4 @@
-package me.Unweptpit.Commands;
+package smp.picnic.picnicstaff.commands;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -10,13 +10,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import me.Unweptpit.Commands.NameLookup.PreviousPlayerNameEntry;
-import me.Unweptpit.Picnicstaff.PicnicStaff;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import smp.picnic.picnicstaff.PicnicStaff;
+import smp.picnic.picnicstaff.commands.NameLookup.PreviousPlayerNameEntry;
 
 
 public class PlayerInfo implements CommandExecutor {

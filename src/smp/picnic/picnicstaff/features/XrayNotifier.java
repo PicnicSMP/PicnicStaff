@@ -1,4 +1,4 @@
-package me.Unweptpit.Features;
+package smp.picnic.picnicstaff.features;
 
 
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
-import me.Unweptpit.Picnicstaff.PicnicStaff;
 import net.md_5.bungee.api.ChatColor;
+import smp.picnic.picnicstaff.PicnicStaff;
 
 
 
