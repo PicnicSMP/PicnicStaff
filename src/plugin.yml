@@ -2,7 +2,7 @@ main: smp.picnic.picnicstaff.PicnicStaff
 name: Picnicstaff
 version: 1.0
 author: Unweptpit
-api: 1.16
+api-version: 1.16
 
 commands:
   Adminchat:

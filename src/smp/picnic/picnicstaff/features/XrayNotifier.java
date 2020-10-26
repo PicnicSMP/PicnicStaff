@@ -43,7 +43,7 @@ public class XrayNotifier implements Listener {
 						map.put(uuid, map2);
 
 					}
-					
+				
 					if (map.get(uuid).get(block) == null) {
 						map.get(uuid).put(block, 1);
 					}
@@ -61,8 +61,6 @@ public class XrayNotifier implements Listener {
 							if (onlinePlayers.hasPermission(main.getConfig().getString("permissions.permissionStaff"))) {
 								int i = map.get(uuid).get(block);
 								onlinePlayers.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4Xray&8] &f" + player.getDisplayName() + "&c has mined &f" + i + " " + name));
-								Bukkit.getConsoleSender().sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&4Xray&8] &f" + player.getDisplayName() + "&c has mined &f" + i + " " + name));
-								map.get(uuid).put(block, 0);
 							}
 						}
 						int i = map.get(uuid).get(block);
@@ -93,13 +91,13 @@ public class XrayNotifier implements Listener {
 					
 					b = new Location(world, x + i, y + j, z + k).getBlock();
 					if( b.getType() == block.getType() ) {
-						return true;
+						return false;
 					}
 				}	
 			}	
 		}
 				
-		return false;
+		return true;
 	}
 }
 
