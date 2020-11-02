@@ -1,7 +1,7 @@
 permissions:
   reload: "&8[&cPicnicStaff&8] &fReloaded!"
   nopermission: "&8[&dPicnicSMP&8] &4You do not have permission!"
-  permissionAdminchat: "Picnicstaff.admitchat"
+  permissionAdminchat: "Picnicstaff.adminchat"
   permissionStaffchat: "Picnicstaff.staffchat"
   permissionXray: "Picnicstaff.noXray"
   permissionStaff: "Picnicstaff.staff"
@@ -18,6 +18,8 @@ Blocks:
   - COAL_ORE
   - IRON_ORE
   - GLOWING_REDSTONE_ORE
+  - SPAWNER
+  - ANCIENT_DEBRIS
 
 Names:
   DIAMOND_ORE: "&bDiamond ore"
@@ -28,3 +30,5 @@ Names:
   EMERALD_ORE: "&aEmerald ore"
   COAL_ORE: "&7Coal Ore"
   IRON_ORE: "&6Iron Ore"
+  SPAWNER: "&7Spawner"
+  ANCIENT_DEBRIS: "&4Ancient Debris"
