@@ -1,6 +1,4 @@
-package smp.picnic.picnicstaff.commands;
-
-
+package me.Unweptpit.Commands;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,14 +17,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
+import me.Unweptpit.Features.StaffItems;
+import me.Unweptpit.Picnicstaff.PicnicStaff;
 import net.md_5.bungee.api.ChatColor;
-import smp.picnic.picnicstaff.PicnicStaff;
-import smp.picnic.picnicstaff.features.StaffItems;
 
 public class StaffMode implements CommandExecutor,Listener {
 	
@@ -94,6 +93,26 @@ public class StaffMode implements CommandExecutor,Listener {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@EventHandler()
+	public void onLeave(PlayerQuitEvent e) {
+		Player player = e.getPlayer();
+		playerdata = player.getPersistentDataContainer();
+		if (playerdata.has(new NamespacedKey(main, "Staffmode"), PersistentDataType.INTEGER)){
+			playerdata.remove(new NamespacedKey(main, "Staffmode"));
+			ItemStack[] inventory = returnInventory(player);	
+				
+			if (inventory != null) {
+				player.getInventory().setContents(inventory);
+			}
+			else {
+				player.sendMessage("Inventory couldn't be found");
+			}
+			setStaffmode(player, false);
+		}
+	}
+	
+	
 
 	@EventHandler(ignoreCancelled=false)
 	public void onInteract(PlayerInteractEvent e) {
@@ -104,26 +123,37 @@ public class StaffMode implements CommandExecutor,Listener {
 		 if ( (action ==  Action.RIGHT_CLICK_AIR ) || (action == Action.RIGHT_CLICK_BLOCK || action == null ) ) {
 		
 			//creative mode item
-			if (player.getInventory().getItemInMainHand().isSimilar(staffItems.Creative()) && e.getPlayer().hasPermission(main.getConfig().getString("permissions.permissionStaffmode"))) {
-				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7You are now in creative mode"));
-				player.setGameMode(GameMode.CREATIVE);
+			if (player.getInventory().getItemInMainHand().isSimilar(staffItems.Gamemode()) && e.getPlayer().hasPermission(main.getConfig().getString("permissions.permissionStaffmode"))) {
+				if (!(Cooldown(player))){
+					cooldowns.put(player.getName(), System.currentTimeMillis() + (1 * 1000));
+					if (player.getGameMode() == GameMode.CREATIVE) {
+						player.setGameMode(GameMode.SPECTATOR);
+						player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7You are now in spectator mode"));
+					}
+					else {
+						player.setGameMode(GameMode.CREATIVE);
+						player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7You are now in creative mode"));
+					}
+				}
+				
 			}
 		
-			//spectator mode item
-			if (player.getInventory().getItemInMainHand().isSimilar(staffItems.Spectator()) && e.getPlayer().hasPermission(main.getConfig().getString("permissions.permissionStaffmode"))) {
-				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7You are now in spectator mode"));
-				player.setGameMode(GameMode.SPECTATOR);
-			}
 		
 			//vanish item
 			if (player.getInventory().getItemInMainHand().isSimilar(staffItems.Vanish()) && e.getPlayer().hasPermission(main.getConfig().getString("permissions.permissionStaffmode"))) {
-				Vanish(player);
+				if (!(Cooldown(player))){
+					cooldowns.put(player.getName(), System.currentTimeMillis() + (1 * 1000));
+					Vanish(player);
+				}
 			}
 		
 			//coreprotect item
 			if (player.getInventory().getItemInMainHand().isSimilar(staffItems.Coreprotect()) && e.getPlayer().hasPermission(main.getConfig().getString("permissions.permissionStaffmode"))) {
-				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Coreprotect toggled"));
-				player.performCommand("co i");
+				if (!(Cooldown(player))){
+					cooldowns.put(player.getName(), System.currentTimeMillis() + (1 * 1000));
+					player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Coreprotect toggled"));
+					player.performCommand("co i");
+				}
 			}
 		 }
 		
@@ -183,8 +213,8 @@ public class StaffMode implements CommandExecutor,Listener {
 	private boolean Cooldown(Player player) {
 		if (cooldowns.containsKey(player.getName())) {
 			if (cooldowns.get(player.getName()) > System.currentTimeMillis()){
-				long timeleft = (cooldowns.get(player.getName()) - System.currentTimeMillis())/1000;
-				player.sendMessage(ChatColor.RED + "Please wait " + timeleft + " seconds");
+				//long timeleft = (cooldowns.get(player.getName()) - System.currentTimeMillis())/1000;
+				//player.sendMessage(ChatColor.RED + "Please wait " + timeleft + " seconds");
 				return true;
 			}
 			if (cooldowns.get(player.getName()) < System.currentTimeMillis()) {
@@ -201,14 +231,14 @@ public class StaffMode implements CommandExecutor,Listener {
 		
 			if (!(playerdata.has(new NamespacedKey(main, "Hidden"), PersistentDataType.INTEGER))){
 				playerdata.set(new NamespacedKey(main, "Hidden"), PersistentDataType.INTEGER ,  1);	
-				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &fVanish &aEnabled"));
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Vanish &aEnabled"));
 				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 					other.hidePlayer(main,player);
 				}
 			}
 			else {
 				playerdata.remove(new NamespacedKey(main, "Hidden"));
-				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &fVanish &4Disabled"));
+				player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Vanish &4Disabled"));
 				for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 					other.showPlayer(main,player);
 				}
@@ -219,7 +249,7 @@ public class StaffMode implements CommandExecutor,Listener {
 	public void Vanish(Player player, boolean state) {
 		playerdata = player.getPersistentDataContainer();
 		if (state == true) {
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &fVanish &aEnabled"));
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Vanish &aEnabled"));
 			playerdata.set(new NamespacedKey(main, "Hidden"), PersistentDataType.INTEGER ,  1);	
 			for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 				other.hidePlayer(main,player);
@@ -227,7 +257,7 @@ public class StaffMode implements CommandExecutor,Listener {
 		}
 		else {
 			playerdata.remove(new NamespacedKey(main, "Hidden"));
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &fVanish &4Disabled"));
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Vanish &4Disabled"));
 			for (Player other : Bukkit.getServer().getOnlinePlayers()) {
 				other.showPlayer(main,player);
 			}
@@ -240,7 +270,7 @@ public class StaffMode implements CommandExecutor,Listener {
 	public void setStaffmode(Player player, boolean state) {
 		
 		if (state == true) {
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &fStaffmode &aEnabled"));
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Staffmode &aEnabled"));
 			Vanish(player, true);
 			
 			ItemStack[] inventory = player.getInventory().getContents();
@@ -256,20 +286,21 @@ public class StaffMode implements CommandExecutor,Listener {
 			savedinventory.put(player.getUniqueId(), saveInventory);
 			player.getInventory().clear();
 			
+			player.getInventory().addItem(staffItems.Gamemode());
+			player.getInventory().addItem(staffItems.Coreprotect());
 			player.getInventory().addItem(staffItems.Examine());
+			player.getInventory().addItem(staffItems.Vanish());
 			player.getInventory().addItem(staffItems.Kill());
 			player.getInventory().addItem(staffItems.Clearinventory());
-			player.getInventory().addItem(staffItems.Coreprotect());
-			player.getInventory().addItem(staffItems.Vanish());
-			player.getInventory().addItem(staffItems.Spectator());
-			player.getInventory().addItem(staffItems.Creative());
+
+			
 
 		
 		}
 		
 		
 		if (state == false) {
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &fStaffmode &4Disabled"));
+			player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Staffmode &4Disabled"));
 			Vanish(player, false);
 			player.getInventory().clear();
 				
@@ -289,10 +320,8 @@ public class StaffMode implements CommandExecutor,Listener {
 		return savedinventory.get(player.getUniqueId());
 	}
 	
+
 }
-
-
-
 
 
 

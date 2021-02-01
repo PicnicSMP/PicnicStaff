@@ -1,4 +1,4 @@
-package smp.picnic.picnicstaff.features;
+package me.Unweptpit.Features;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,81 +52,65 @@ public class StaffItems {
 	
 	public ItemStack Vanish() {
 		String itemLore = "Right click to toggle vanish";
-		ItemStack Examine = new ItemStack(Material.FEATHER);
-		ItemMeta ExamineMeta = Examine.getItemMeta();
-		List<String> ExamineLore = new ArrayList<String>();
+		ItemStack Vanish = new ItemStack(Material.FEATHER);
+		ItemMeta VanishMeta = Vanish.getItemMeta();
+		List<String> VanishLore = new ArrayList<String>();
 		
 				
-		ExamineLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
-		ExamineMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Vanish"));
-		ExamineMeta.setLore(ExamineLore);
-		Examine.setItemMeta(ExamineMeta);
+		VanishLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
+		VanishMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Vanish"));
+		VanishMeta.setLore(VanishLore);
+		Vanish.setItemMeta(VanishMeta);
 		
-		return  Examine;
+		return  Vanish;
 						
 	}
 	
-	public ItemStack Creative() {
-		String itemLore = "Right click to go into creative mode";
-		ItemStack Examine = new ItemStack(Material.GOLD_NUGGET);
-		ItemMeta ExamineMeta = Examine.getItemMeta();
-		List<String> ExamineLore = new ArrayList<String>();
+	public ItemStack Gamemode() {
+		String ItemLore = "Right click (ground) to toggle between creative mode and spectator mode";
+		ItemStack Gamemode = new ItemStack(Material.IRON_NUGGET);
+		ItemMeta GamemodeMeta = Gamemode.getItemMeta();
+		List<String> GamemodeLore = new ArrayList<String>();
 		
 				
-		ExamineLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
-		ExamineMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Creative Mode"));
-		ExamineMeta.setLore(ExamineLore);
-		Examine.setItemMeta(ExamineMeta);
+		GamemodeLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + ItemLore);
+		GamemodeMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Gamemode Toggler"));
+		GamemodeMeta.setLore(GamemodeLore);
+		Gamemode.setItemMeta(GamemodeMeta);
 		
-		return  Examine;
-						
-	}
-	
-	public ItemStack Spectator() {
-		String itemLore = "Right click to go into spectator mode";
-		ItemStack Examine = new ItemStack(Material.IRON_NUGGET);
-		ItemMeta ExamineMeta = Examine.getItemMeta();
-		List<String> ExamineLore = new ArrayList<String>();
-		
-				
-		ExamineLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
-		ExamineMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Spectator Mode"));
-		ExamineMeta.setLore(ExamineLore);
-		Examine.setItemMeta(ExamineMeta);
-		
-		return  Examine;
+		return  Gamemode;
 						
 	}
 	
 	public ItemStack Clearinventory() {
 		String itemLore = "Right click on a player to clear his/her inventory";
-		ItemStack Examine = new ItemStack(Material.FLINT);
-		ItemMeta ExamineMeta = Examine.getItemMeta();
-		List<String> ExamineLore = new ArrayList<String>();
+		ItemStack Clearinventory = new ItemStack(Material.FLINT);
+		ItemMeta ClearinventoryMeta = Clearinventory.getItemMeta();
+		List<String> ClearinventoryLore = new ArrayList<String>();
 		
 				
-		ExamineLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
-		ExamineMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7ClearInventory"));
-		ExamineMeta.setLore(ExamineLore);
-		Examine.setItemMeta(ExamineMeta);
+		ClearinventoryLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
+		ClearinventoryMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7ClearInventory"));
+		ClearinventoryMeta.setLore(ClearinventoryLore);
+		Clearinventory.setItemMeta(ClearinventoryMeta);
 		
-		return  Examine;
+		return  Clearinventory;
 						
 	}
 	
 	public ItemStack Coreprotect() {
 		String itemLore = "Right click to toggle /co i";
-		ItemStack Examine = new ItemStack(Material.SLIME_BALL);
-		ItemMeta ExamineMeta = Examine.getItemMeta();
-		List<String> ExamineLore = new ArrayList<String>();
+		ItemStack Coreprotect = new ItemStack(Material.SLIME_BALL);
+		ItemMeta CoreprotectMeta = Coreprotect.getItemMeta();
+		List<String> CoreprotectLore = new ArrayList<String>();
 		
 				
-		ExamineLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
-		ExamineMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Coreprotect Inspect"));
-		ExamineMeta.setLore(ExamineLore);
-		Examine.setItemMeta(ExamineMeta);
+		CoreprotectLore.add(ChatColor.LIGHT_PURPLE + "" + ChatColor.ITALIC + itemLore);
+		CoreprotectMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Coreprotect Inspect"));
+		CoreprotectMeta.setLore(CoreprotectLore);
+		Coreprotect.setItemMeta(CoreprotectMeta);
 		
-		return  Examine;
+		return  Coreprotect;
 						
 	}
 	

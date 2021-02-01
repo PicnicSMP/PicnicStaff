@@ -1,4 +1,4 @@
-package smp.picnic.picnicstaff.commands;
+package me.Unweptpit.Commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import smp.picnic.picnicstaff.PicnicStaff;
+import me.Unweptpit.Picnicstaff.PicnicStaff;
 
 public class Staffchat implements CommandExecutor {
 

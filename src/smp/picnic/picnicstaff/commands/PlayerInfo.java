@@ -1,4 +1,4 @@
-package smp.picnic.picnicstaff.commands;
+package me.Unweptpit.Commands;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -10,13 +10,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import me.Unweptpit.Commands.NameLookup.PreviousPlayerNameEntry;
+import me.Unweptpit.Picnicstaff.PicnicStaff;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import smp.picnic.picnicstaff.PicnicStaff;
-import smp.picnic.picnicstaff.commands.NameLookup.PreviousPlayerNameEntry;
 
 
 public class PlayerInfo implements CommandExecutor {
@@ -36,51 +36,53 @@ public class PlayerInfo implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!(sender.hasPermission(main.getConfig().getString("permissions.permissionGetinfo")))){
-			sender.sendMessage(ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("permissions.nopermission")));
-			return true;
-		}
+		if (label.equalsIgnoreCase("getinfo")) {
+			if (!(sender.hasPermission(main.getConfig().getString("permissions.permissionGetinfo")))){
+				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("permissions.nopermission")));
+				return true;
+			}
 		
-		if (args.length == 0) {
-			sender.sendMessage("Correct usage: /getinfo <name>");
-		}
+			if (args.length == 0) {
+				sender.sendMessage("Correct usage: /getinfo <name>");
+			}
 		
-		if (args.length >= 1) {
+			if (args.length >= 1) {
 			
-			Player player = Bukkit.getPlayer(args[0]);
-			//If player equals null that means the player is offline, so we check the offlineplayers stats
-			if(player == null) {
-				@SuppressWarnings("deprecation")
-				OfflinePlayer offplayer = Bukkit.getOfflinePlayer(args[0]);
-				UUID uuid = offplayer.getUniqueId();
-				String playeruuid = uuid.toString();
+				Player player = Bukkit.getPlayer(args[0]);
+				//If player equals null that means the player is offline, so we check the offlineplayers stats
+				if(player == null) {
+					@SuppressWarnings("deprecation")
+					OfflinePlayer offplayer = Bukkit.getOfflinePlayer(args[0]);
+					UUID uuid = offplayer.getUniqueId();
+					String playeruuid = uuid.toString();
 				
 				
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Playerinfo:"));
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Username:"));
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f" + offplayer.getName()));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Playerinfo:"));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Username:"));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f" + offplayer.getName()));
 				
-				messageUUID(playeruuid, sender);
-				messagePreviousNames(playeruuid, player, sender);
+					messageUUID(playeruuid, sender);
+					messagePreviousNames(playeruuid, player, sender);
 				}
 			
-			else {
-				UUID uuid = player.getUniqueId();
-				String playeruuid = uuid.toString();
+				else {
+					UUID uuid = player.getUniqueId();
+					String playeruuid = uuid.toString();
 				
 				
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Playerinfo:"));
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Username:"));
-				sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f" + player.getName()));
-				if (sender.hasPermission(main.getConfig().getString("permissions.permissionExamineIp"))) {
-					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6IP: &f" + ((Player) player).getAddress().getHostString()));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&cPicnicStaff&8] &7Playerinfo:"));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6Username:"));
+					sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&f" + player.getName()));
+					if (sender.hasPermission(main.getConfig().getString("permissions.permissionExamineIp"))) {
+						sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&6IP: &f" + ((Player) player).getAddress().getHostString()));
+					}
+				
+					messageUUID(playeruuid, sender);
+					messagePreviousNames(playeruuid, player, sender);
 				}
-				
-				messageUUID(playeruuid, sender);
-				messagePreviousNames(playeruuid, player, sender);
 			}
 		}
-		return false;
+			return false;
 	}
 
 	private void messagePreviousNames(String playeruuid, Player player, CommandSender sender) {
@@ -114,7 +116,6 @@ public class PlayerInfo implements CommandExecutor {
 		else {
 			sender.sendMessage("UUID: " + UUID);
 		}
-		
 	}
 
 }
